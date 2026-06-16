@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Registerinterest.css';
-import MainPage from './MainPage'; // استيراد الصفحة الجديدة هنا
+// import MainPage from './MainPage'; // استيراد الصفحة الجديدة هنا
 import { useNavigate } from 'react-router-dom'; // 1. استيراد أداة التنقل
 function Registerinterest() {
   // حالة نموذج التسجيل

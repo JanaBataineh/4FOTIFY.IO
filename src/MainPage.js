@@ -15,41 +15,41 @@ function MainPage() {
     joinReason: ''
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const formSectionRef = useRef(null);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     [name]: value
+  //   }));
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // هنا تقدر تبعت البيانات للـ server أو تخزنها
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // هنا تقدر تبعت البيانات للـ server أو تخزنها
+  //   console.log('Form submitted:', formData);
+  //   setSubmitted(true);
     
-    // إعادة تعيين النموذج بعد ثانيتين
-    setTimeout(() => {
-      setFormData({
-        firstName: '',
-        lastName: '',
-        jobTitle: '',
-        organization: '',
-        email: '',
-        industrySector: '',
-        joinReason: ''
-      });
-      setSubmitted(false);
-    }, 2000);
-  };
+  //   // إعادة تعيين النموذج بعد ثانيتين
+  //   setTimeout(() => {
+  //     setFormData({
+  //       firstName: '',
+  //       lastName: '',
+  //       jobTitle: '',
+  //       organization: '',
+  //       email: '',
+  //       industrySector: '',
+  //       joinReason: ''
+  //     });
+  //     setSubmitted(false);
+  //   }, 2000);
+  // };
 
-  const scrollToForm = () => {
-    formSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // const scrollToForm = () => {
+  //   formSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // };
   const navigate = useNavigate();
 // مرجع جديد لقسم How it works
   const howItWorksRef = useRef(null);
