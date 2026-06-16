@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap');
+
+.how-it-works-content {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.section-eyebrow {
+  color: #2c6377;
+  letter-spacing: 2px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  max-width: 708px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.highlight {
+color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة جداً من الصورة */
+  font-style: italic;
+}
+.description {
+  max-width: 620px; /* هذا الرقم بتقدري تعدليه وتزيديه أو تقلليه لحد ما توصلي للعرض المطلوب */
+  line-height: 1.6; /* بيعطي مسافة مريحة للعين بين الأسطر */
+  color: #8b99a6; /* لون مقارب جداً للون الخط بالصورة الأصلية */
+  font-size: 16px;
+  margin-bottom: 60px; /* عشان يعمل مسافة بين النص والكروت اللي تحته */
+}
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 60px;
+  gap: 3px; /* بنلغي الفراغ تماماً عشان يلزقوا ببعض */
+}
+
+.step-item {
+  background-color: #151c24;
+  padding: 30px 28px;
+  border: 1px solid #1a2530; /* إطار كامل لكل كرت */
+  transition: background-color 0.3s ease;
+}
+
+
+.step-item + .step-item {
+  border-left: none;
+}
+
+/* الكرت الأول: تقويس من اليسار (فوق وتحت) زي الدوائر الحمرا برسمتك */
+.step-item:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+/* الكرت الأخير: تقويس من اليمين (فوق وتحت) زي الدوائر الحمرا برسمتك */
+.step-item:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+
+/* تنسيق الرقم والعنوان داخل الكارت (بدون تغيير) */
+.step-number {
+  color: #2c6377;
+  font-size: 12px;
+  margin-bottom: 20px;
+  display: block;
+  font-family: 'Space Mono', monospace; 
+  font-variant-numeric: slashed-zero; 
+  letter-spacing: 2px; 
+}
+
+.step-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.step-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #a0a0a0b7;
+  line-height: 1.6;
+  font-weight: 300;
+}
