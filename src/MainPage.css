@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -493,6 +494,407 @@ button[type="submit"]:hover {
   color: #5f7f9a;
 }
 
+/* --- Scale of the Problem Section --- */
+.scale-section {
+background: linear-gradient(to right, #0c1927 0%, #1a496b 100%);
+  padding: 100px 0;
+border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+  /* ضيفي هدول الـ 3 أسطر الجداد هون */
+  position: relative; 
+  overflow: hidden; 
+  z-index: 1; 
+}
+
+
+.scale-container {
+  display: flex;
+  gap: 80px; /* مسافة مريحة بين النص والكروت */
+  align-items: center; /* لتوسيط العناصر عمودياً مع بعضها */
+}
+
+/* تنسيقات العمود الأيسر (النصوص) */
+.scale-content {
+  flex: 1;
+  max-width: 450px;
+}
+
+.scale-eyebrow {
+  display: block;
+  color: #5097a4;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.scale-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  color: #92c5d6; /* درجة أزرق فاتح قريبة جداً للصورة */
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.scale-desc {
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.scale-source {
+  display: block;
+  color: #5097a4;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* تنسيقات العمود الأيمن (الكروت) */
+.scale-cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* المسافة بين الكروت */
+}
+
+.stat-box {
+  background-color: rgba(255, 255, 255, 0.03); /* خلفية شفافة جداً لتبين كأنها زجاجية */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* إطار خفيف جداً يحدد الكرت */
+  padding: 35px 30px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-4px); /* حركة خفيفة للأعلى عند التمرير بالماوس */
+}
+
+.stat-box-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #ffffff;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.stat-box-desc {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.stat-box-link {
+  color: #5097a4;
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* تجاوب الشاشات الصغيرة (الموبايل) */
+@media (max-width: 900px) {
+  .scale-container {
+    flex-direction: column;
+    gap: 50px;
+    align-items: flex-start;
+  }
+  
+  .scale-content {
+    max-width: 100%;
+  }
+}
+
+/* --- Context Section (Zigzag Layout) --- */
+.context-section {
+  background-color: #070e15; /* نفس لون الخلفية الأساسي */
+  width: 100%;
+}
+
+.context-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 600px; /* لضمان ارتفاع مناسب للقسم */
+}
+
+/* عكس الترتيب للصف الثاني */
+.reverse-row {
+  flex-direction: row-reverse;
+}
+
+/* تنسيق عمود الصورة */
+.context-image-col {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.context-image-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* تأثير التدرج الأسود فوق الصورة لدمجها مع الخلفية */
+.image-fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  /* تدرج لوني يخفي الأطراف العلوية والجانبية للصورة */
+  background: radial-gradient(circle, rgba(7,14,21,0) 0%, rgba(7,14,21,1) 95%);
+}
+
+/* تنسيق عمود النص */
+.context-text-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+  background-color: #070e15;
+}
+
+.context-text-inner {
+  max-width: 600px; /* لتحديد عرض النص وعدم تمدده كثيراً */
+}
+
+.context-eyebrow {
+  display: block;
+  color: #5097a4;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.context-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  color: #ffffff;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+/* الكلاس المكرر للخط المائل الأزرق (إذا كنتِ ضايفتيه مسبقاً لا تكرريه) */
+.light-blue-italic {
+  color: #92c5d6;
+  font-style: italic;
+}
+
+.context-desc {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* --- تجاوب الشاشات الصغيرة (الموبايل) --- */
+@media (max-width: 960px) {
+  .context-row, .reverse-row {
+    flex-direction: column; /* تحويل العواميد لصفوف تحت بعض */
+  }
+  
+  .context-image-col {
+    width: 100%;
+    min-height: 400px;
+  }
+  
+  .context-text-col {
+    padding: 40px 20px;
+  }
+}
+
+
+
+
+
+.how-it-works-content {
+  max-width: 1200px;
+  margin: 100px auto;
+  padding: 0 20px;
+  text-align: left;
+  scroll-margin-top: 100px;
+}
+
+.section-eyebrow {
+  color: #2c6377;
+  letter-spacing: 2px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  max-width: 708px;
+  line-height: 1.2;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.highlight {
+color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة جداً من الصورة */
+  font-style: italic;
+}
+.description {
+  max-width: 620px; /* هذا الرقم بتقدري تعدليه وتزيديه أو تقلليه لحد ما توصلي للعرض المطلوب */
+  line-height: 1.6; /* بيعطي مسافة مريحة للعين بين الأسطر */
+  color: #8b99a6; /* لون مقارب جداً للون الخط بالصورة الأصلية */
+  font-size: 16px;
+  margin-bottom: 60px; /* عشان يعمل مسافة بين النص والكروت اللي تحته */
+}
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 60px;
+  gap: 3px; /* بنلغي الفراغ تماماً عشان يلزقوا ببعض */
+}
+
+.step-item {
+  background-color: #151c24;
+  padding: 30px 28px;
+  border: 1px solid #1a2530; /* إطار كامل لكل كرت */
+  transition: background-color 0.3s ease;
+}
+
+
+.step-item + .step-item {
+  border-left: none;
+}
+
+/* الكرت الأول: تقويس من اليسار (فوق وتحت) زي الدوائر الحمرا برسمتك */
+.step-item:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+/* الكرت الأخير: تقويس من اليمين (فوق وتحت) زي الدوائر الحمرا برسمتك */
+.step-item:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+
+/* تنسيق الرقم والعنوان داخل الكارت (بدون تغيير) */
+.step-number {
+  color: #2c6377;
+  font-size: 12px;
+  margin-bottom: 20px;
+  display: block;
+  font-family: 'Space Mono', monospace; 
+  font-variant-numeric: slashed-zero; 
+  letter-spacing: 2px; 
+}
+
+.step-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.step-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #a0a0a0b7;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+
+/* --- Outcomes Section (What you leave with) --- */
+.outcomes-section {
+  background-color: #070e15;
+  padding: 80px 0 120px; /* مسافات من فوق وتحت */
+  text-align: left;
+}
+
+/* تجهيز شبكة الكروت (عمودين) */
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* بقسم المساحة لعمودين متساويين */
+  gap: 20px; /* المسافة بين الكروت */
+  margin-top: 50px;
+}
+
+/* تنسيق الكرت الواحد */
+.outcome-card {
+  background-color: rgba(255, 255, 255, 0.03); /* لون شفاف داكن */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* إطار خفيف */
+  border-radius: 10px;
+  padding: 30px;
+  display: flex; /* عشان النقطة الزرقاء والنص يكونوا جنب بعض */
+  align-items: flex-start;
+  gap: 15px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.outcome-card:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* النقطة الزرقاء */
+.bullet-dot {
+  color: #7cb9cb; /* نفس درجة الأزرق الفاتح */
+  font-size: 24px;
+  line-height: 0.8; /* عشان تظل على مستوى السطر الأول */
+}
+
+/* النص جوا الكرت */
+.outcome-card p {
+  color: #a0a0a0b7;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* --- تجاوب الشاشات الصغيرة للموبايل --- */
+@media (max-width: 800px) {
+  .outcomes-grid {
+    grid-template-columns: 1fr; /* بيخلي الكروت تترتب عمود واحد تحت بعض عالموبايل */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Footer */
 .footer {
   background-color: transparent;
@@ -500,30 +902,46 @@ button[type="submit"]:hover {
   margin-top: 60px;
 }
 
+/* --- MainPage.css (قسم الفوتر) --- */
+
+.footer-logo {
+  display: flex; /* ضروري لتوسيط الأيقونة مع النص أفقياً */
+  align-items: center; /* لتوسيط الأيقونة مع النص عمودياً */
+  
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; /* حجم الخط في الفوتر يكون أصغر عادة */
+  font-weight: 700;
+  letter-spacing: 4px; /* تباعد الحروف المميز للفوتر */
+  color: #ffffff;
+  
+  /* تأكدي من حذف أي `gap` قد يكون موجوداً لكي لا تبتعد الأيقونة عن الحروف */
+  gap: 0px; 
+}
+
+/* تنسيق أيقونة القفل المدمجة حديثاً في الفوتر */
+.lock-icon-footer {
+  width: 16px; /* حجم الأيقونة يتناسب مع حجم نص الفوتر */
+  height: 16px;
+  color: #ffffff; /* جعل الأيقونة بيضاء تماماً مثل النص */
+  margin: 0px; /* لضمان عدم وجود مسافات جانبية */
+}
+
+/* تنظيف: يمكنك حذف الكلاس القديم `.target-icon` لأنه لم يعد مستخدماً */
+/*
+.target-icon {
+  width: 16px;
+  height: 16px;
+  margin: 0 4px 0 0;
+  color: #ffffff;
+}
+*/
+
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 35px;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #ffffff;
-}
-
-/* تنسيق أيقونة الهدف (حرف O) */
-.target-icon {
-  width: 16px;
-  height: 16px;
-  margin: 0 4px 0 0;
-  color: #ffffff;
 }
 
 .footer-text {

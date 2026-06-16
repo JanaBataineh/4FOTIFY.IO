@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './MainPage';
 import Registerinterest from './Registerinterest';
 import './App.css';
-import HowItWorks from './HowItWorks'; 
-
+import Survey from './Survey';
+import AdminDashboard from './AdminDashboard';
 function App() {
   return (
     <Router> 
@@ -12,7 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/register" element={<Registerinterest />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/survey" element={<Survey />} /> 
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,197 @@
+/* --- Survey.css --- */
+
+.survey-page {
+  background-color: #070e15;
+  min-height: 100vh;
+  color: #ffffff;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.survey-container {
+  width: 100%;
+  max-width: 750px;
+  background-color: #0c141c;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* شريط التقدم */
+.survey-progress-wrapper {
+  margin-bottom: 40px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #5097a4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.progress-bar-bg {
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: #1f7b8c;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.survey-section-eyebrow {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #7cb9cb;
+  font-style: italic;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* كتل الأسئلة */
+.question-block {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.question-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.question-number {
+  color: #5097a4;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* خيارات الإجابة */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: #131d26;
+  border: 1px solid #1c2a36;
+  padding: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-label:hover {
+  background-color: #192633;
+  border-color: #2c3e50;
+}
+
+/* حالة اختيار الكرت */
+.option-label.selected {
+  background-color: rgba(31, 123, 140, 0.1);
+  border-color: #1f7b8c;
+}
+
+.option-label input[type="radio"] {
+  display: none; /* إخفاء دائرة الاختيار التقليدية */
+}
+
+/* تخصيص دائرة اختيار مخصصة وجميلة */
+.custom-radio {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #334155;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.option-label.selected .custom-radio {
+  border-color: #1f7b8c;
+}
+
+.option-label.selected .custom-radio::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background-color: #1f7b8c;
+  border-radius: 50%;
+}
+
+.option-text {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.option-label.selected .option-text {
+  color: #ffffff;
+}
+
+/* أزرار التحكم بالتنقل */
+.survey-navigation {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.btn-survey-primary, .btn-survey-submit {
+  background-color: #1f7b8c;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-survey-primary:hover, .btn-survey-submit:hover {
+  background-color: #2c9ab8;
+}
+
+.btn-survey-primary:disabled, .btn-survey-submit:disabled {
+  background-color: #142430;
+  color: #475569;
+  cursor: not-allowed;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+.btn-survey-secondary {
+  background-color: transparent;
+  color: #94a3b8;
+  border: 1px solid #1c2a36;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-survey-secondary:hover {
+  color: white;
+  background-color: rgba(255,255,255,0.02);
+}
