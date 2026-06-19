@@ -6,7 +6,9 @@ import './App.css';
 import Survey from './Survey';
 import AdminDashboard from './AdminDashboard';
 import AdminLogin from './AdminLogin';
-import ProtectedRoute from './ProtectedRoute'; // استيراد الحارس
+import ProtectedRoute from './ProtectedRoute';
+import ProtectedRouteUser from './ProtectedRouteUser';
+import UserLogin from './UserLogin'; 
 function App() {
   return (
     <Router> 
@@ -14,7 +16,6 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/register" element={<Registerinterest />} />
-        <Route path="/survey" element={<Survey />} /> 
         <Route path="/admin-login" element={<AdminLogin />} />        
         {/* الحماية هنا: لن يدخل أحد للداش بورد إلا إذا كان مسجل دخول */}
         <Route 
@@ -25,6 +26,15 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route path="/survey-login" element={<UserLogin />} />
+<Route path="/survey" element={
+    <ProtectedRouteUser> 
+        <Survey /> 
+    </ProtectedRouteUser>
+} />
+
+
+
       </Routes>
     </Router>
   );

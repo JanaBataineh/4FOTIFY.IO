@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Survey.css';
-
+import { useNavigate } from 'react-router-dom';
 // مصفوفة الأسئلة (كما هي، أضيفي باقي الأسئلة براحتك)
 const mockQuestions = [
   //Question 1
@@ -309,25 +309,13 @@ const mockQuestions = [
   }
 
  ];
-
 const partners = ['self', 'partnerA', 'partnerB', 'partnerC'];
 
 function Survey() {
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '', lastName: '', jobTitle: '', organisation: '',
-    workEmail: '', industrySector: '', otherIndustry: '', primaryMotivation: ''
-  });
+  const navigate = useNavigate();
+  // تم حذف formData و isRegistered وكل توابعهم لأنهم لم يعودوا مستخدمين
   const [answers, setAnswers] = useState({});
-const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-    setIsRegistered(true); // هاي الخطوة اللي بتخفي الفورم وبتفتح الاستبيان!
-    window.scrollTo(0, 0);
-  };
+
   // دالة حفظ التقييم
   const handleOptionSelect = (questionId, partner, score) => {
     setAnswers(prev => ({
@@ -353,18 +341,19 @@ const handleFormChange = (e) => {
   // التحقق من أن المستخدم أجاب على تقييم الـ Self لكل الأسئلة للسماح بالإرسال
   const isComplete = mockQuestions.every(q => answers[q.id]?.self !== undefined);
 
-const handleSurveySubmit = (e) => {
+  const finalSubmit = (e) => {
     e.preventDefault();
-    
-    // 1. حساب النتيجة المئوية (Score) لكل الأقسام
+
+    // استرجاع بيانات المستخدم من الـ LocalStorage (التي تم حفظها في UserLogin)
+    const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { name: "Anonymous", org: "N/A" };
+
+    // 1. حساب النتائج
     let totalScore = 0;
     let factorScores = { f1: 0, f2: 0, f3: 0, f4: 0 };
     
     mockQuestions.forEach((q, index) => {
       const score = answers[q.id]?.self || 0;
       totalScore += score;
-      
-      // توزيع الأسئلة على الـ 4 أقسام (كل قسم فيه 6 أسئلة)
       if (index < 6) factorScores.f1 += score;
       else if (index < 12) factorScores.f2 += score;
       else if (index < 18) factorScores.f3 += score;
@@ -377,121 +366,29 @@ const handleSurveySubmit = (e) => {
     const f3 = Math.round((factorScores.f3 / (6 * 5)) * 100);
     const f4 = Math.round((factorScores.f4 / (6 * 5)) * 100);
 
-    // 2. تجهيز البيانات للحفظ (اسم الشخص، شركته، ونتيجته)
     const newSubmission = {
       id: Date.now(), 
-      name: `${formData.firstName} ${formData.lastName}`,
-      org: formData.organisation,
-      sector: formData.industrySector === 'Other' ? formData.otherIndustry : formData.industrySector,
+      name: storedUser.name, // استخدام الاسم من الدخول
+      org: storedUser.org,   // استخدام الشركة من الدخول
+      sector: 'N/A',         // بما أننا ألغينا الفورم نضعها N/A كقيمة افتراضية
       score: finalScore,
       status: 'Completed',
       date: new Date().toISOString().split('T')[0], 
       factors: { f1, f2, f3, f4 }
     };
 
-    // 3. حفظ البيانات في ذاكرة المتصفح (Local Storage)
+    // 2. حفظ في الـ LocalStorage
     const existingData = JSON.parse(localStorage.getItem('trustSurveyData')) || [];
     localStorage.setItem('trustSurveyData', JSON.stringify([newSubmission, ...existingData]));
-
-    alert('Survey submitted successfully! Go to the Admin Dashboard to see your results.');
     
-    // تفريغ البيانات والرجوع للبداية (اختياري عشان لو حدا ثاني بده يعبي)
-    window.location.reload(); 
+    // 3. إنهاء الجلسة والتحويل
+    localStorage.setItem('hasCompletedSurvey', 'true');
+    localStorage.removeItem('currentUser');
+    
+    alert("Thank you for your participation! Your results have been saved.");
+    navigate('/'); 
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Final Answers Collected:', answers);
-    alert('Survey submitted successfully! Calculating your results...');
-  };
-
-  // تقسيم الأسئلة حسب الأقسام لعرضها بشكل منظم
-  const sections = [1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
-if (!isRegistered) {
-
-  return (
-      <div className="survey-page">
-        <div className="survey-container" style={{ maxWidth: '600px' }}>
-          <h2 style={{ color: '#fff', textAlign: 'center', marginBottom: '10px', fontSize: '2rem' }}>
-            Pilot Programme Registration
-          </h2>
-          <p style={{ color: '#94a3b8', textAlign: 'center', marginBottom: '30px', fontSize: '0.95rem' }}>
-            Please register your information to get access to the Trust Gap Analysis Survey.
-          </p>
-
-          <form onSubmit={handleRegisterSubmit} className="survey-form">
-            <div className="form-row" style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
-              <div className="input-group" style={{ flex: 1 }}>
-                <label>FIRST NAME</label>
-                <input type="text" name="firstName" placeholder="Jane" value={formData.firstName} onChange={handleFormChange} required />
-              </div>
-              <div className="input-group" style={{ flex: 1 }}>
-                <label>LAST NAME</label>
-                <input type="text" name="lastName" placeholder="Smith" value={formData.lastName} onChange={handleFormChange} required />
-              </div>
-            </div>
-            
-            <div className="input-group">
-              <label>JOB TITLE</label>
-              <input type="text" name="jobTitle" placeholder="Chief Procurement Officer" value={formData.jobTitle} onChange={handleFormChange} required />
-            </div>
-            
-            <div className="input-group">
-              <label>ORGANISATION</label>
-              <input type="text" name="organisation" placeholder="Company name" value={formData.organisation} onChange={handleFormChange} required />
-            </div>
-            
-            <div className="input-group">
-              <label>WORK EMAIL</label>
-              <input type="email" name="workEmail" placeholder="you@company.com" value={formData.workEmail} onChange={handleFormChange} required />
-            </div>
-            
-            <div className="input-group">
-              <label>INDUSTRY SECTOR</label>
-              <select name="industrySector" value={formData.industrySector} onChange={handleFormChange} required>
-                <option value="" disabled hidden>Select your sector</option>
-                <option value="Manufacturing">Manufacturing</option>
-                <option value="Retail">Retail</option>
-                <option value="Logistics">Logistics</option>
-                <option value="Technology">Technology</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Energy">Energy</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            {formData.industrySector === 'Other' && (
-              <div className="input-group">
-                <label>PLEASE SPECIFY YOUR INDUSTRY</label>
-                <input type="text" name="otherIndustry" placeholder="Type your industry here..." value={formData.otherIndustry || ''} onChange={handleFormChange} required />
-              </div>
-            )}
-
-            <div className="input-group">
-              <label>PRIMARY MOTIVATION FOR JOINING</label>
-              <textarea 
-                name="primaryMotivation" 
-                placeholder="Please describe your reason for joining the programme..." 
-                value={formData.primaryMotivation} 
-                onChange={handleFormChange} 
-                required 
-                rows="4"
-                style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(0,0,0,0.2)', color: '#fff', fontFamily: 'inherit' }}
-              />
-            </div>
-
-            <div className="survey-navigation" style={{ justifyContent: 'center', marginTop: '20px' }}>
-              <button type="submit" className="btn-survey-submit" style={{ width: '100%' }}>
-                Register & Start Survey
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
-// شاشة الاستبيان المفتوح (بدون أقسام)
   return (
     <div className="survey-page">
       <div className="survey-container">
@@ -500,7 +397,7 @@ if (!isRegistered) {
           Trust Gap Analysis Survey
         </h2>
 
-        <form onSubmit={handleSurveySubmit} className="survey-form">
+        <form onSubmit={finalSubmit} className="survey-form">
           <div className="section-wrapper" style={{ marginBottom: '60px' }}>
             
             {/* الدوران مباشرة على الأسئلة بدون أقسام */}
