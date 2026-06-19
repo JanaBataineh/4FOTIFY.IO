@@ -1,55 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import img1 from './Navigating-Uncertainty-Together.jpg';
 import img2 from './uk-comm-may-24-banner.jpg';
 import img3 from './photo-1494412574643-ff11b0a5c1c3.avif';
 function MainPage() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    jobTitle: '',
-    organization: '',
-    email: '',
-    industrySector: '',
-    joinReason: ''
-  });
 
-  // const [submitted, setSubmitted] = useState(false);
-  const formSectionRef = useRef(null);
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prevState => ({
-  //     ...prevState,
-  //     [name]: value
-  //   }));
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // هنا تقدر تبعت البيانات للـ server أو تخزنها
-  //   console.log('Form submitted:', formData);
-  //   setSubmitted(true);
-    
-  //   // إعادة تعيين النموذج بعد ثانيتين
-  //   setTimeout(() => {
-  //     setFormData({
-  //       firstName: '',
-  //       lastName: '',
-  //       jobTitle: '',
-  //       organization: '',
-  //       email: '',
-  //       industrySector: '',
-  //       joinReason: ''
-  //     });
-  //     setSubmitted(false);
-  //   }, 2000);
-  // };
-
-  // const scrollToForm = () => {
-  //   formSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  // };
   const navigate = useNavigate();
 // مرجع جديد لقسم How it works
   const howItWorksRef = useRef(null);
@@ -76,7 +33,7 @@ function MainPage() {
   </svg>TIFY
 </div>
           <div className="header-right">
-            <span className="badge-nav">CJBS · McKinsey Risk Prize 2024</span>
+            <span className="badge-nav">University of Cambridge - CJBS McKinsey Risk Prize 2024</span>
             <button className="btn-nav" 
             onClick={() => navigate('/register')}
             >Register interest</button>
@@ -110,9 +67,6 @@ function MainPage() {
 </button>
           </div>
 
-          <p className="hero-footer-note">
-            Limited pilot places available · No commitment required to register interest
-          </p>
         </div>
       </section>
 
@@ -251,7 +205,7 @@ function MainPage() {
              of supply chain sustainability and<br />
               resilience</span> 
         </h2>
-        <p className="description">
+        <p className="description"style={{ fontWeight: 'normal' }}>
              The 4FOTIFY diagnostic is built on the Four Factors of Organisational Trust framework,
              developed through research at Cambridge Judge Business School and informed by
              senior supply chain practitioners with between 15 and 45 years of experience. It
@@ -380,10 +334,7 @@ Organisational Trust.
         </svg>
         TIFY
       </div>
-      
-      <p className="footer-text">
-        Cambridge Venture — CJBS McKinsey Risk Prize 2024 · Cambridge Judge Business School
-      </p>
+
     </div>
   </div>
 </footer>

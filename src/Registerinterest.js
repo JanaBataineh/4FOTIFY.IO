@@ -110,19 +110,36 @@ function Registerinterest() {
                   <option value="Technology">Technology</option>
                   <option value="Healthcare">Healthcare</option>
                   <option value="Energy">Energy</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
-
-              <div className="input-group">
-                <label>PRIMARY MOTIVATION FOR JOINING</label>
-                <select name="primaryMotivation" value={formData.primaryMotivation} onChange={handleChange} required>
-                  <option value="" disabled hidden>Select one</option>
-                  <option value="Reduce costs">Reduce supply chain costs</option>
-                  <option value="Improve resilience">Improve disruption resilience</option>
-                  <option value="Enhance sustainability">Enhance sustainability</option>
-                  <option value="Build trust">Build strategic trust</option>
-                </select>
-              </div>
+              {/* هذا الحقل لن يظهر إلا إذا اختار المستخدم Other */}
+  {formData.industrySector === 'Other' && (
+    <div className="input-group">
+      <label>PLEASE SPECIFY YOUR INDUSTRY</label>
+      <input 
+        type="text" 
+        name="otherIndustry" 
+        placeholder="Type your industry here..." 
+        value={formData.otherIndustry || ''} 
+        onChange={handleChange} 
+        required 
+      />
+    </div>
+  )}
+{/* تم تحويل هذا الحقل إلى Textarea بناءً على طلب العميلة */}
+  <div className="input-group">
+    <label>PRIMARY MOTIVATION FOR JOINING</label>
+    <textarea 
+      name="primaryMotivation" 
+      placeholder="Please describe your reason for joining the programme..." 
+      value={formData.primaryMotivation} 
+      onChange={handleChange} 
+      required 
+      rows="4"
+      style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', backgroundColor: 'transparent', color: 'inherit', fontFamily: 'inherit' }}
+    />
+  </div>
 
               <button type="submit">Register interest in the pilot</button>
             </form>

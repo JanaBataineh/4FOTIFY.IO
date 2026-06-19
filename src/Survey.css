@@ -1,197 +1,213 @@
-/* --- Survey.css --- */
+/* تنسيقات الجدول الجديد */
+.question-matrix-block {
 
-.survey-page {
-  background-color: #070e15;
-  min-height: 100vh;
-  color: #ffffff;
-  padding: 60px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.survey-container {
-  width: 100%;
-  max-width: 750px;
-  background-color: #0c141c;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-}
-
-/* شريط التقدم */
-.survey-progress-wrapper {
-  margin-bottom: 40px;
-}
-
-.progress-text {
-  font-size: 12px;
-  color: #5097a4;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.progress-bar-bg {
-  background-color: rgba(255, 255, 255, 0.05);
-  height: 6px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  background-color: #1f7b8c;
-  height: 100%;
-  transition: width 0.4s ease;
-}
-
-.survey-section-eyebrow {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: #7cb9cb;
-  font-style: italic;
-  margin-bottom: 30px;
-  font-weight: 400;
-}
-
-/* كتل الأسئلة */
-.question-block {
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 24px;
   border-radius: 12px;
-  margin-bottom: 24px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* ظل خفيف يعطي عمق */
 }
 
-.question-text {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 20px;
+.question-matrix-title {
   color: #ffffff;
-}
-
-.question-number {
-  color: #5097a4;
-  font-weight: 600;
-  margin-right: 8px;
-}
-
-/* خيارات الإجابة */
-.options-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.option-label {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background-color: #131d26;
-  border: 1px solid #1c2a36;
-  padding: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.option-label:hover {
-  background-color: #192633;
-  border-color: #2c3e50;
-}
-
-/* حالة اختيار الكرت */
-.option-label.selected {
-  background-color: rgba(31, 123, 140, 0.1);
-  border-color: #1f7b8c;
-}
-
-.option-label input[type="radio"] {
-  display: none; /* إخفاء دائرة الاختيار التقليدية */
-}
-
-/* تخصيص دائرة اختيار مخصصة وجميلة */
-.custom-radio {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #334155;
-  border-radius: 50%;
-  position: relative;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.option-label.selected .custom-radio {
-  border-color: #1f7b8c;
-}
-
-.option-label.selected .custom-radio::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 8px;
-  height: 8px;
-  background-color: #1f7b8c;
-  border-radius: 50%;
-}
-
-.option-text {
-  font-size: 14px;
-  color: #94a3b8;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 25px;
   line-height: 1.5;
 }
-
-.option-label.selected .option-text {
-  color: #ffffff;
+.question-number {
+  color: #a5f3fc;
+  margin-right: 8px;
+  font-weight: 600;
+}
+.table-responsive {
+  overflow-x: auto;
 }
 
-/* أزرار التحكم بالتنقل */
+.survey-matrix-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 25px;
+}
+
+.survey-matrix-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #d1d5db;
+  vertical-align: middle;
+
+  }
+
+.survey-matrix-table th {
+ 
+  background: rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+  font-weight: 600;
+  padding: 18px 12px;
+  font-size: 0.95rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.survey-matrix-table .scale-col, 
+.survey-matrix-table .scale-text {
+  text-align: left;
+  width: 38%; /* إعطاء مساحة أكبر للنص */
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.survey-matrix-table .scale-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.survey-matrix-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+.survey-container {
+  max-width: 1050px; /* تحديد العرض الأقصى */
+  margin: 0 auto; /* توسيط الحاوية في الشاشة */
+  padding: 20px;
+}
+.survey-section-eyebrow {
+  color: #a5f3fc; /* لون أزرق فاتح متناسق مع التصميم */
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 .survey-navigation {
   display: flex;
   justify-content: flex-end;
-  gap: 16px;
-  margin-top: 40px;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.btn-survey-primary, .btn-survey-submit {
-  background-color: #1f7b8c;
-  color: white;
+.btn-survey-primary, 
+.btn-survey-submit {
+  background-color: #a5f3fc; /* نفس لون زر الصفحة الرئيسية */
+  color: #0f172a; /* لون خط غامق عشان يقرأ بسهولة */
   border: none;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-size: 14px;
+  padding: 12px 30px;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+}
+.btn-survey-primary:hover, 
+.btn-survey-submit:hover {
+  background-color: #cffafe;
+  transform: translateY(-2px);
 }
 
-.btn-survey-primary:hover, .btn-survey-submit:hover {
-  background-color: #2c9ab8;
-}
-
-.btn-survey-primary:disabled, .btn-survey-submit:disabled {
-  background-color: #142430;
-  color: #475569;
+.btn-survey-primary:disabled, 
+.btn-survey-submit:disabled {
+  background-color: #475569;
+  color: #94a3b8;
   cursor: not-allowed;
-  border: 1px solid rgba(255,255,255,0.02);
+  transform: none;
 }
-
 .btn-survey-secondary {
   background-color: transparent;
-  color: #94a3b8;
-  border: 1px solid #1c2a36;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-size: 14px;
+  color: #cbd5e1;
+  border: 1px solid #64748b;
+  padding: 12px 30px;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
 }
 
 .btn-survey-secondary:hover {
-  color: white;
-  background-color: rgba(255,255,255,0.02);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: #94a3b8;
+}
+.radio-cell {
+  text-align: center;
+}
+.radio-cell input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #a5f3fc; /* لون أزرق عند الاختيار */
+  cursor: pointer;
+  transition: transform 0.2s;
+
+}
+.radio-cell input[type="radio"]:hover {
+  transform: scale(1.1); /* تكبير بسيط عند تمرير الماوس */
+}
+
+.notes-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notes-container label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.notes-container textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.notes-container textarea:focus {
+  outline: none;
+  border-color: #4db8ff;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #a5f3fc;
+}
+
+.input-group select option {
+  background: #0f172a;
+  color: #fff;
 }
