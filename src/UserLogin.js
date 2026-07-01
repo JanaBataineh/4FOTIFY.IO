@@ -4,25 +4,45 @@ import { useNavigate } from 'react-router-dom';
 function UserLogin() {
   const [email, setEmail] = useState('');
   const [token, setToken] = useState('');
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
-  const handleUserLogin = (e) => {
+const handleUserLogin = async (e) => {
     e.preventDefault();
-    // هنا بنعمل محاكاة للرموز (في الواقع بتجي من الباك اند)
-    const validTokens = {
-      "user1@test.com": "4F-2026",
-      "sarah@techcorp.com": "SURVEY-85"
-    };
+    setIsLoading(true);
 
-    if (validTokens[email] === token) {
-localStorage.setItem('currentUser', JSON.stringify({
-  email: email,
-  name: " user name", 
-  org: "Company Name"   
-}));
-      navigate('/survey');
-    } else {
-      alert("Invalid Email or Access Code!");
+    try {
+      // إرسال الإيميل والكود للباك إند للتحقق
+      const response = await fetch('http://localhost:5112/api/Interests/verify-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email, code: token })
+      });
+
+      if (response.ok) {
+        // إذا الكود صحيح، بنستقبل بيانات المستخدم من السيرفر
+        const data = await response.json();
+        
+        // تخزين البيانات الحقيقية بالـ LocalStorage
+        localStorage.setItem('currentUser', JSON.stringify({
+          email: email,
+          name: data.name, // الاسم الحقيقي من قاعدة البيانات
+          org: data.org    // اسم الشركة الحقيقي
+        }));
+        
+        // توجيه المستخدم لصفحة الاستبيان
+        navigate('/survey');
+      } else {
+        // إذا الكود غلط أو الإيميل غلط
+        alert("Invalid Email or Access Code! Please check the code sent to your email.");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Cannot connect to the server. Please ensure the backend is running.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -31,10 +51,21 @@ localStorage.setItem('currentUser', JSON.stringify({
       <div className="login-box">
         <h2>Participant Login</h2>
         <form onSubmit={handleUserLogin}>
-          <input type="email" placeholder="Email Address" onChange={(e) => setEmail(e.target.value)} required />
-          <input type="text" placeholder="Enter Access Code" onChange={(e) => setToken(e.target.value)} required />
-          <button type="submit">Access Survey</button>
-        </form>
+          <input type="email"
+           placeholder="Email Address"
+            onChange={(e) => setEmail(e.target.value)}
+             required 
+             />
+          <input
+           type="text" 
+           placeholder="Enter Access Code"
+            onChange={(e) => setToken(e.target.value)}
+             required 
+             />
+            <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Verifying...' : 'Access Survey'}
+          </button>
+          </form>
       </div>
     </div>
   );

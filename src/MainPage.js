@@ -33,7 +33,6 @@ function MainPage() {
   </svg>TIFY
 </div>
           <div className="header-right">
-            <span className="badge-nav">University of Cambridge - CJBS McKinsey Risk Prize 2024</span>
             <button className="btn-nav" 
             onClick={() => navigate('/register')}
             >Register interest</button>

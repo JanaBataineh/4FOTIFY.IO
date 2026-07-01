@@ -339,7 +339,6 @@ body {
   margin-bottom: 40px;
 }
 
-/* إزالة الخلفية البيضاء من القائمة */
 .pilot-includes {
   background: transparent;
   padding: 0;
@@ -366,7 +365,6 @@ body {
   font-size: 14px;
 }
 
-/* تغيير علامة الصح لنقطة */
 .pilot-includes li::before {
   content: "•";
   color: #5097a4;
@@ -499,8 +497,6 @@ button[type="submit"]:hover {
 background: linear-gradient(to right, #0c1927 0%, #1a496b 100%);
   padding: 100px 0;
 border-top: 1px solid rgba(255, 255, 255, 0.05);
-
-  /* ضيفي هدول الـ 3 أسطر الجداد هون */
   position: relative; 
   overflow: hidden; 
   z-index: 1; 
@@ -509,11 +505,10 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 .scale-container {
   display: flex;
-  gap: 80px; /* مسافة مريحة بين النص والكروت */
-  align-items: center; /* لتوسيط العناصر عمودياً مع بعضها */
+  gap: 80px; 
+  align-items: center; 
 }
 
-/* تنسيقات العمود الأيسر (النصوص) */
 .scale-content {
   flex: 1;
   max-width: 450px;
@@ -532,7 +527,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 .scale-title {
   font-family: 'Playfair Display', serif;
   font-size: 64px;
-  color: #92c5d6; /* درجة أزرق فاتح قريبة جداً للصورة */
+  color: #92c5d6; 
   font-weight: 400;
   line-height: 1.1;
   margin-bottom: 24px;
@@ -555,24 +550,23 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   font-weight: 600;
 }
 
-/* تنسيقات العمود الأيمن (الكروت) */
 .scale-cards {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* المسافة بين الكروت */
+  gap: 16px; 
 }
 
 .stat-box {
-  background-color: rgba(255, 255, 255, 0.03); /* خلفية شفافة جداً لتبين كأنها زجاجية */
-  border: 1px solid rgba(255, 255, 255, 0.05); /* إطار خفيف جداً يحدد الكرت */
+  background-color: rgba(255, 255, 255, 0.03); 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
   padding: 35px 30px;
   border-radius: 8px;
   transition: transform 0.3s ease;
 }
 
 .stat-box:hover {
-  transform: translateY(-4px); /* حركة خفيفة للأعلى عند التمرير بالماوس */
+  transform: translateY(-4px); 
 }
 
 .stat-box-title {
@@ -597,7 +591,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   font-weight: 600;
 }
 
-/* تجاوب الشاشات الصغيرة (الموبايل) */
 @media (max-width: 900px) {
   .scale-container {
     flex-direction: column;
@@ -612,7 +605,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 /* --- Context Section (Zigzag Layout) --- */
 .context-section {
-  background-color: #070e15; /* نفس لون الخلفية الأساسي */
+  background-color: #070e15; 
   width: 100%;
 }
 
@@ -620,15 +613,13 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 600px; /* لضمان ارتفاع مناسب للقسم */
+  min-height: 600px; 
 }
 
-/* عكس الترتيب للصف الثاني */
 .reverse-row {
   flex-direction: row-reverse;
 }
 
-/* تنسيق عمود الصورة */
 .context-image-col {
   flex: 1;
   position: relative;
@@ -646,7 +637,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   left: 0;
 }
 
-/* تأثير التدرج الأسود فوق الصورة لدمجها مع الخلفية */
 .image-fade-overlay {
   position: absolute;
   top: 0;
@@ -654,11 +644,9 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   width: 100%;
   height: 100%;
   z-index: 2;
-  /* تدرج لوني يخفي الأطراف العلوية والجانبية للصورة */
   background: radial-gradient(circle, rgba(7,14,21,0) 0%, rgba(7,14,21,1) 95%);
 }
 
-/* تنسيق عمود النص */
 .context-text-col {
   flex: 1;
   display: flex;
@@ -668,7 +656,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .context-text-inner {
-  max-width: 600px; /* لتحديد عرض النص وعدم تمدده كثيراً */
+  max-width: 600px; 
 }
 
 .context-eyebrow {
@@ -690,7 +678,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   margin-bottom: 24px;
 }
 
-/* الكلاس المكرر للخط المائل الأزرق (إذا كنتِ ضايفتيه مسبقاً لا تكرريه) */
 .light-blue-italic {
   color: #92c5d6;
   font-style: italic;
@@ -703,10 +690,9 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
   font-weight: 300;
 }
 
-/* --- تجاوب الشاشات الصغيرة (الموبايل) --- */
 @media (max-width: 960px) {
   .context-row, .reverse-row {
-    flex-direction: column; /* تحويل العواميد لصفوف تحت بعض */
+    flex-direction: column; 
   }
   
   .context-image-col {
@@ -718,10 +704,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding: 40px 20px;
   }
 }
-
-
-
-
 
 .how-it-works-content {
   max-width: 1200px;
@@ -748,27 +730,27 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .highlight {
-color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة جداً من الصورة */
+color: #7cb9cb; 
   font-style: italic;
 }
 .description {
-  max-width: 620px; /* هذا الرقم بتقدري تعدليه وتزيديه أو تقلليه لحد ما توصلي للعرض المطلوب */
-  line-height: 1.6; /* بيعطي مسافة مريحة للعين بين الأسطر */
-  color: #8b99a6; /* لون مقارب جداً للون الخط بالصورة الأصلية */
+  max-width: 620px; 
+  line-height: 1.6;
+  color: #8b99a6; 
   font-size: 16px;
-  margin-bottom: 60px; /* عشان يعمل مسافة بين النص والكروت اللي تحته */
+  margin-bottom: 60px; 
 }
 .steps-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 60px;
-  gap: 3px; /* بنلغي الفراغ تماماً عشان يلزقوا ببعض */
+  gap: 3px; 
 }
 
 .step-item {
   background-color: #151c24;
   padding: 30px 28px;
-  border: 1px solid #1a2530; /* إطار كامل لكل كرت */
+  border: 1px solid #1a2530; 
   transition: background-color 0.3s ease;
 }
 
@@ -777,18 +759,14 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
   border-left: none;
 }
 
-/* الكرت الأول: تقويس من اليسار (فوق وتحت) زي الدوائر الحمرا برسمتك */
 .step-item:first-child {
   border-radius: 12px 0 0 12px;
 }
 
-/* الكرت الأخير: تقويس من اليمين (فوق وتحت) زي الدوائر الحمرا برسمتك */
 .step-item:last-child {
   border-radius: 0 12px 12px 0;
 }
 
-
-/* تنسيق الرقم والعنوان داخل الكارت (بدون تغيير) */
 .step-number {
   color: #2c6377;
   font-size: 12px;
@@ -819,25 +797,23 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
 /* --- Outcomes Section (What you leave with) --- */
 .outcomes-section {
   background-color: #070e15;
-  padding: 80px 0 120px; /* مسافات من فوق وتحت */
+  padding: 80px 0 120px; 
   text-align: left;
 }
 
-/* تجهيز شبكة الكروت (عمودين) */
 .outcomes-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* بقسم المساحة لعمودين متساويين */
-  gap: 20px; /* المسافة بين الكروت */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
   margin-top: 50px;
 }
 
-/* تنسيق الكرت الواحد */
 .outcome-card {
-  background-color: rgba(255, 255, 255, 0.03); /* لون شفاف داكن */
-  border: 1px solid rgba(255, 255, 255, 0.05); /* إطار خفيف */
+  background-color: rgba(255, 255, 255, 0.03); 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
   border-radius: 10px;
   padding: 30px;
-  display: flex; /* عشان النقطة الزرقاء والنص يكونوا جنب بعض */
+  display: flex; 
   align-items: flex-start;
   gap: 15px;
   transition: transform 0.3s ease, background-color 0.3s ease;
@@ -848,14 +824,12 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* النقطة الزرقاء */
 .bullet-dot {
-  color: #7cb9cb; /* نفس درجة الأزرق الفاتح */
+  color: #7cb9cb; 
   font-size: 24px;
-  line-height: 0.8; /* عشان تظل على مستوى السطر الأول */
+  line-height: 0.8; 
 }
 
-/* النص جوا الكرت */
 .outcome-card p {
   color: #a0a0a0b7;
   font-size: 14px;
@@ -864,36 +838,11 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
   margin: 0;
 }
 
-/* --- تجاوب الشاشات الصغيرة للموبايل --- */
 @media (max-width: 800px) {
   .outcomes-grid {
-    grid-template-columns: 1fr; /* بيخلي الكروت تترتب عمود واحد تحت بعض عالموبايل */
+    grid-template-columns: 1fr; 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Footer */
 .footer {
@@ -902,39 +851,25 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
   margin-top: 60px;
 }
 
-/* --- MainPage.css (قسم الفوتر) --- */
+/* --- MainPage.css  --- */
 
 .footer-logo {
-  display: flex; /* ضروري لتوسيط الأيقونة مع النص أفقياً */
-  align-items: center; /* لتوسيط الأيقونة مع النص عمودياً */
-  
+  display: flex; 
+  align-items: center; 
   font-family: 'Inter', sans-serif;
-  font-size: 14px; /* حجم الخط في الفوتر يكون أصغر عادة */
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 4px; /* تباعد الحروف المميز للفوتر */
+  letter-spacing: 4px; 
   color: #ffffff;
-  
-  /* تأكدي من حذف أي `gap` قد يكون موجوداً لكي لا تبتعد الأيقونة عن الحروف */
-  gap: 0px; 
+    gap: 0px; 
 }
 
-/* تنسيق أيقونة القفل المدمجة حديثاً في الفوتر */
 .lock-icon-footer {
-  width: 16px; /* حجم الأيقونة يتناسب مع حجم نص الفوتر */
+  width: 16px; 
   height: 16px;
-  color: #ffffff; /* جعل الأيقونة بيضاء تماماً مثل النص */
-  margin: 0px; /* لضمان عدم وجود مسافات جانبية */
+  color: #ffffff; 
+  margin: 0px; 
 }
-
-/* تنظيف: يمكنك حذف الكلاس القديم `.target-icon` لأنه لم يعد مستخدماً */
-/*
-.target-icon {
-  width: 16px;
-  height: 16px;
-  margin: 0 4px 0 0;
-  color: #ffffff;
-}
-*/
 
 .footer-content {
   display: flex;
@@ -955,40 +890,34 @@ color: #7cb9cb; /* درجة اللون الأزرق الفاتح القريبة 
     gap: 8px; 
   }
 
-  /* تنسيق العبارة (الباج) */
   .badge-nav {
-    font-size: 9px; /* تصغير الخط لحجم مقروء عالموبايل */
-    padding: 6px 10px; /* تقليل المساحة الداخلية للإطار */
-    letter-spacing: 0.5px; /* تقليل تباعد الأحرف لتوفير مساحة */
-    max-width: 140px; /* تحديد عرض أقصى للعبارة */
-    white-space: normal; /* السماح للنص بالنزول لسطرين */
-    text-align: center; /* توسيط النص داخل الإطار */
-    line-height: 1.3; /* ترتيب المسافة بين السطرين عشان ما يكونوا ملزقين ببعض */
+    font-size: 9px; 
+    padding: 6px 10px; 
+    letter-spacing: 0.5px; 
+    max-width: 140px; 
+    white-space: normal;
+    text-align: center; 
+    line-height: 1.3; 
   }
 
-  /* تصغير اللوجو شوي عشان نعطي مساحة أكبر لباقي العناصر */
   .logo-text {
     font-size: 18px;
   }
 
-  /* تصغير زر التسجيل شوي ليتناسب مع الحجم الجديد */
   .btn-nav {
     padding: 8px 12px;
     font-size: 12px;
   }
   .steps-container {
     display: grid;
-    grid-template-columns: 1fr; /* عمود واحد فقط يملأ الشاشة */
-    gap: 20px; /* مسافة مريحة بين كل كرت والي تحته */
+    grid-template-columns: 1fr; 
+    gap: 20px; 
     margin-top: 40px;
-    width: 100%; /* ضمان إنو الحاوية ما تتجاوز حجم الشاشة */
+    width: 100%; 
   }
 
-  /* تنسيق الكرت الواحد في الموبايل */
   .step-item {
-    width: 100%; /* الكرت بياخذ العرض المتاح كامل بدون ما يطلع برا الشاشة */
-    
-    /* إلغاء الدمج وإرجاع الحواف الدائرية والإطار لكل كرت بشكل مستقل */
+    width: 100%; 
     border-radius: 12px !important; 
     border-left: 1px solid #1a2530 !important; 
   }

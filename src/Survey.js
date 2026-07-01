@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Survey.css';
 import { useNavigate } from 'react-router-dom';
-// مصفوفة الأسئلة (كما هي، أضيفي باقي الأسئلة براحتك)
 const mockQuestions = [
   //Question 1
   {
@@ -315,6 +314,54 @@ function Survey() {
   const navigate = useNavigate();
   // تم حذف formData و isRegistered وكل توابعهم لأنهم لم يعودوا مستخدمين
   const [answers, setAnswers] = useState({});
+// 1. حالات لأسماء الشركاء وشاشة البداية
+  const [partnerNames, setPartnerNames] = useState({ partnerA: '', partnerB: '', partnerC: '' });
+  const [isSetupComplete, setIsSetupComplete] = useState(false);
+
+  // 2. دوال التعامل مع إدخال الأسماء
+  const handleNameChange = (e) => {
+    const { name, value } = e.target;
+    setPartnerNames(prev => ({ ...prev, [name]: value }));
+  };
+
+const handleStartSurvey = async (e) => {
+    e.preventDefault();
+    
+    // جلب بيانات المستخدم المسجل دخول من الـ LocalStorage
+    const storedUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    if (!storedUser || !storedUser.email) {
+      alert("Error: Please login first.");
+      navigate('/survey-login');
+      return;
+    }
+
+    try {
+      // إرسال أسماء الشركاء للباك إند
+      const response = await fetch('http://localhost:5112/api/Interests/update-partners', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: storedUser.email,
+          partnerA: partnerNames.partnerA,
+          partnerB: partnerNames.partnerB,
+          partnerC: partnerNames.partnerC
+        })
+      });
+
+      if (response.ok) {
+        // إذا تم الحفظ بنجاح، انتقل لأسئلة الاستبيان
+        setIsSetupComplete(true); 
+      } else {
+        alert("Failed to save partners. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error saving partners:", error);
+      alert("Cannot connect to the server.");
+    }
+  };
 
   // دالة حفظ التقييم
   const handleOptionSelect = (questionId, partner, score) => {
@@ -338,21 +385,21 @@ function Survey() {
     }));
   };
 
-  // التحقق من أن المستخدم أجاب على تقييم الـ Self لكل الأسئلة للسماح بالإرسال
-  const isComplete = mockQuestions.every(q => answers[q.id]?.self !== undefined);
+  const isComplete = mockQuestions.every(q => 
+    partners.every(p =>answers[q.id]?.[p]!== undefined)
+  );
 
-  const finalSubmit = (e) => {
+  const finalSubmit = async (e) => {
     e.preventDefault();
 
-    // استرجاع بيانات المستخدم من الـ LocalStorage (التي تم حفظها في UserLogin)
-    const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { name: "Anonymous", org: "N/A" };
+    const storedUser = JSON.parse(localStorage.getItem('currentUser')) || { name: "Anonymous", org: "N/A",email: "No Email" };
 
-    // 1. حساب النتائج
     let totalScore = 0;
     let factorScores = { f1: 0, f2: 0, f3: 0, f4: 0 };
     
     mockQuestions.forEach((q, index) => {
-      const score = answers[q.id]?.self || 0;
+      let score = answers[q.id]?.self || 0;
+      score = score === 'N/A' ? 0 : (score || 0);
       totalScore += score;
       if (index < 6) factorScores.f1 += score;
       else if (index < 12) factorScores.f2 += score;
@@ -367,28 +414,72 @@ function Survey() {
     const f4 = Math.round((factorScores.f4 / (6 * 5)) * 100);
 
     const newSubmission = {
-      id: Date.now(), 
-      name: storedUser.name, // استخدام الاسم من الدخول
-      org: storedUser.org,   // استخدام الشركة من الدخول
-      sector: 'N/A',         // بما أننا ألغينا الفورم نضعها N/A كقيمة افتراضية
+      name: storedUser.name|| "Anonymous", 
+      email: storedUser.email,
+      org: storedUser.org || "N/A",   
+      sector: 'N/A',         
       score: finalScore,
       status: 'Completed',
       date: new Date().toISOString().split('T')[0], 
-      factors: { f1, f2, f3, f4 }
+      factors: { f1, f2, f3, f4 },
+      customPartnerNames: partnerNames,
+      answers: answers
     };
+    try {
+      // إرسال البيانات إلى .NET Backend
+      const response = await fetch('http://localhost:5112/api/Responses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newSubmission)
+      });
 
-    // 2. حفظ في الـ LocalStorage
-    const existingData = JSON.parse(localStorage.getItem('trustSurveyData')) || [];
-    localStorage.setItem('trustSurveyData', JSON.stringify([newSubmission, ...existingData]));
-    
-    // 3. إنهاء الجلسة والتحويل
-    localStorage.setItem('hasCompletedSurvey', 'true');
-    localStorage.removeItem('currentUser');
-    
-    alert("Thank you for your participation! Your results have been saved.");
-    navigate('/'); 
+      if (response.ok) {
+        // 2. حفظ في الـ LocalStorage عشان ملف Report.js يظل شغال ويقرأها للمستخدم
+        const existingData = JSON.parse(localStorage.getItem('trustSurveyData')) || [];
+        localStorage.setItem('trustSurveyData', JSON.stringify([newSubmission, ...existingData]));
+        
+        // 3. إنهاء الجلسة والتحويل
+        localStorage.setItem('hasCompletedSurvey', 'true');
+        // ممكن نترك currentUser إذا كنا بنحتاجه في صفحة التقرير
+        
+        alert("Thank you for your participation! Your results have been saved.");
+        navigate('/'); 
+      } else {
+        alert("Error saving data to the server.");
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Cannot connect to the server.");
+    }
   };
 
+// إذا لم يكمل المستخدم إدخال الأسماء، اعرض هذه الشاشة أولاً
+  if (!isSetupComplete) {
+    return (
+      <div className="survey-page">
+        <div className="survey-container" style={{ maxWidth: '600px', marginTop: '100px' }}>
+          <h2 style={{ color: '#fff', textAlign: 'center', marginBottom: '20px' }}>Identify Your Partners</h2>
+          <form onSubmit={handleStartSurvey} className="survey-form">
+            <div className="input-group" style={{ marginBottom: '20px' }}>
+              <label>PARTNER A NAME <span style={{ color: 'red' }}>*</span></label>
+              <input type="text" name="partnerA" value={partnerNames.partnerA} onChange={handleNameChange} required style={{ width: '100%', padding: '10px' }}/>
+            </div>
+            <div className="input-group" style={{ marginBottom: '20px' }}>
+              <label>PARTNER B NAME <span style={{ color: 'red' }}>*</span></label>
+              <input type="text" name="partnerB" value={partnerNames.partnerB} onChange={handleNameChange} required style={{ width: '100%', padding: '10px' }}/>
+            </div>
+            <div className="input-group" style={{ marginBottom: '40px' }}>
+              <label>PARTNER C NAME <span style={{ color: 'red' }}>*</span></label>
+              <input type="text" name="partnerC" value={partnerNames.partnerC} onChange={handleNameChange} required style={{ width: '100%', padding: '10px' }}/>
+            </div>
+            <button type="submit" className="btn-survey-submit" style={{ width: '100%', padding: '15px' }}>Start Survey</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="survey-page">
       <div className="survey-container">
@@ -417,9 +508,9 @@ function Survey() {
                       <tr>
                         <th className="scale-col">Maturity Scale</th>
                         <th>Self</th>
-                        <th>Partner A</th>
-                        <th>Partner B</th>
-                        <th>Partner C</th>
+                        <th>{partnerNames.partnerA}</th>
+                        <th>{partnerNames.partnerB}</th>
+                        <th>{partnerNames.partnerC}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -434,11 +525,27 @@ function Survey() {
                                 value={option.score}
                                 checked={answers[question.id]?.[partner] === option.score}
                                 onChange={() => handleOptionSelect(question.id, partner, option.score)}
+                                required
                               />
                             </td>
                           ))}
                         </tr>
                       ))}
+                      <tr className="na-row" style={{ borderTop: '2px solid rgba(255,255,255,0.1)' }}>
+                        <td className="scale-text" style={{ fontStyle: 'italic', color: '#aaa' }}>N/A (Not Applicable)</td>
+                        {partners.map(partner => (
+                          <td key={partner} className="radio-cell">
+                            <input
+                              type="radio"
+                              name={`${question.id}-${partner}`}
+                              value="N/A"
+                              checked={answers[question.id]?.[partner] === 'N/A'}
+                              onChange={() => handleOptionSelect(question.id, partner, 'N/A')}
+                              required /* <-- جعل السؤال إجبارياً هنا */
+                            />
+                          </td>
+                        ))}
+                      </tr>
                     </tbody>
                   </table>
                 </div>

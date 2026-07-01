@@ -19,11 +19,54 @@ function Registerinterest() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('شكراً لتسجيل اهتمامك. سنتواصل معك خلال 48 ساعة.');
-    // يمكنك هنا إرسال البيانات إلى API حقيقي
+    
+    // 1. تجهيز البيانات لتطابق أسماء الحقول في الباك إند (API)
+    const dataToSend = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      jobTitle: formData.jobTitle,
+      company: formData.organisation, // هنا قمنا بتحويل organisation إلى company
+      workEmail: formData.workEmail,
+      // إذا اختار Other، نرسل القيمة المكتوبة، وإلا نرسل القطاع المختار
+      industrySector: formData.industrySector === 'Other' ? formData.otherIndustry : formData.industrySector,
+      primaryMotivation: formData.primaryMotivation,
+      emailStatus: "Not Sent"
+    };
+
+    try {
+      // 2. إرسال الطلب إلى السيرفر الخاص بكِ
+      const response = await fetch('http://localhost:5112/api/Interests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      // 3. التحقق من النتيجة
+      if (response.ok) {
+        alert('Thank you for registering your interest. Your details have been successfully saved and we will contact you within 48 hours.');
+        
+        // تفريغ الحقول بعد الإرسال الناجح
+        setFormData({
+          firstName: '',
+          lastName: '',
+          jobTitle: '',
+          organisation: '',
+          workEmail: '',
+          industrySector: '',
+          primaryMotivation: '',
+          otherIndustry: '' 
+        });
+      } else {
+        alert('An error occurred while saving the data. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Unable to connect to the server. Please ensure your backend is enabled.');
+    }
   };
   const navigate = useNavigate();
 
@@ -54,7 +97,7 @@ function Registerinterest() {
             <h2>Register interest in the <br /> <span>4FOTIFY pilot.</span></h2>
             
             <p className="pilot-desc">
-              We are offering a small number of organisations the opportunity to experience the full 4FOTIFY diagnostic at a pilot rate, in exchange for structured feedback that will help refine the process before wider launch.
+              We are offering a small number of organisations the opportunity to experience the full 4FOTIFY, in exchange for structured feedback that will help refine the process before wider launch.
             </p>
 
             <span className="pilot-badge">Limited pilot places available</span>
@@ -76,32 +119,32 @@ function Registerinterest() {
 <form onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="input-group">
-                  <label>FIRST NAME</label>
+                  <label>FIRST NAME <span style={{ color: 'red' }}>*</span></label>
                   <input type="text" name="firstName" placeholder="Jane" value={formData.firstName} onChange={handleChange} required />
                 </div>
                 <div className="input-group">
-                  <label>LAST NAME</label>
+                  <label>LAST NAME <span style={{ color: 'red' }}>*</span></label>
                   <input type="text" name="lastName" placeholder="Smith" value={formData.lastName} onChange={handleChange} required />
                 </div>
               </div>
               
               <div className="input-group">
-                <label>JOB TITLE</label>
+                <label>JOB TITLE <span style={{ color: 'red' }}>*</span></label>
                 <input type="text" name="jobTitle" placeholder="Chief Procurement Officer" value={formData.jobTitle} onChange={handleChange} required />
               </div>
               
               <div className="input-group">
-                <label>ORGANISATION</label>
+                <label>ORGANISATION <span style={{ color: 'red' }}>*</span></label>
                 <input type="text" name="organisation" placeholder="Company name" value={formData.organisation} onChange={handleChange} required />
               </div>
               
               <div className="input-group">
-                <label>WORK EMAIL</label>
+                <label>WORK EMAIL <span style={{ color: 'red' }}>*</span></label>
                 <input type="email" name="workEmail" placeholder="you@company.com" value={formData.workEmail} onChange={handleChange} required />
               </div>
               
               <div className="input-group">
-                <label>INDUSTRY SECTOR</label>
+                <label>INDUSTRY SECTOR <span style={{ color: 'red' }}>*</span></label>
                 <select name="industrySector" value={formData.industrySector} onChange={handleChange} required>
                   <option value="" disabled hidden>Select your sector</option>
                   <option value="Manufacturing">Manufacturing</option>
@@ -116,7 +159,7 @@ function Registerinterest() {
               {/* هذا الحقل لن يظهر إلا إذا اختار المستخدم Other */}
   {formData.industrySector === 'Other' && (
     <div className="input-group">
-      <label>PLEASE SPECIFY YOUR INDUSTRY</label>
+      <label>PLEASE SPECIFY YOUR INDUSTRY <span style={{ color: 'red' }}>*</span></label>
       <input 
         type="text" 
         name="otherIndustry" 
@@ -129,7 +172,7 @@ function Registerinterest() {
   )}
 {/* تم تحويل هذا الحقل إلى Textarea بناءً على طلب العميلة */}
   <div className="input-group">
-    <label>PRIMARY MOTIVATION FOR JOINING</label>
+    <label>PRIMARY MOTIVATION FOR JOINING <span style={{ color: 'red' }}>*</span></label>
     <textarea 
       name="primaryMotivation" 
       placeholder="Please describe your reason for joining the programme..." 
@@ -165,9 +208,6 @@ function Registerinterest() {
               <path fillRule="evenodd" clipRule="evenodd" d="M7.5 10.5C6.94772 10.5 6.5 10.9477 6.5 11.5V16.5C6.5 17.0523 6.94772 17.5 7.5 17.5H16.5C17.0523 17.5 17.5 17.0523 17.5 16.5V11.5C17.5 10.9477 17.0523 10.5 16.5 10.5H7.5ZM12 15C11.4477 15 11 14.5523 11 14C11 13.4477 11.4477 13 12 13C12.5523 13 13 13.4477 13 14C13 14.5523 12.5523 15 12 15Z" fill="currentColor"/>
             </svg>
             TIFY
-          </div>
-          <div className="footer-text">
-            Honourable Mention · CJBS McKinsey Risk Prize 2024 · Cambridge Judge Business School
           </div>
         </div>
       </footer>
